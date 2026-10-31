@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firearm Moderation - Staff Portal</title>
+    <style>
+        :root {
+            --bg-color: #0f1115;
+            --container-bg: #161920;
+            --accent-color: #ff3b3b;
+            --text-color: #ffffff;
+            --text-muted: #8b949e;
+            --border-color: #30363d;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background-color: var(--container-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 40px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
+
+        h1 {
+            color: var(--accent-color);
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+        }
+
+        .notice {
+            background-color: rgba(255, 59, 59, 0.1);
+            border-left: 4px solid var(--accent-color);
+            padding: 15px;
+            margin-bottom: 30px;
+            font-size: 0.95rem;
+            color: #ff8080;
+        }
+
+        .section-title {
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 5px;
+            margin-top: 35px;
+            color: #58a6ff;
+            text-transform: uppercase;
+            font-size: 1.1rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        input[type="text"], input[type="number"], select, textarea {
+            width: 100%;
+            padding: 12px;
+            background-color: #0d1117;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            color: var(--text-color);
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            resize: vertical;
+            height: 100px;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 20px;
+            margin-top: 5px;
+        }
+
+        .captcha-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .captcha-box {
+            background: linear-gradient(45deg, #21262d, #0d1117);
+            padding: 10px 20px;
+            font-size: 1.4rem;
+            font-weight: bold;
+            letter-spacing: 5px;
+            color: var(--accent-color);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            user-select: none;
+            font-style: italic;
+            text-decoration: line-through;
+        }
+
+        .signature-area {
+            border: 2px dashed var(--border-color);
+            background-color: #0d1117;
+            border-radius: 4px;
+            position: relative;
+            margin-top: 10px;
+        }
+
+        canvas {
+            width: 100%;
+            height: 150px;
+            display: block;
+            cursor: crosshair;
+        }
+
+        .clear-btn {
+            background-color: #21262d;
+            color: #c9d1d9;
+            border: 1px solid var(--border-color);
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 5px;
+            font-size: 0.8rem;
+        }
+
+        .submit-btn {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 40px;
+            transition: background 0.2s;
+        }
+
+        .submit-btn:hover {
+            background-color: #cc2e2e;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Firearm Moderation</h1>
+    <p style="text-align: center; color: var(--text-muted); margin-top: 0;">Official Recruitment & Verification Portal</p>
+    
+    <div class="notice">
+        <strong>⚠️ SECURITY NOTICE:</strong> Applications are legally processed through our validation systems. Any false declarations, alt-account masking, or background discrepancies will cause automatic algorithmic denial. Review timeframe: <strong>Within 1,000 Hours</strong>.
+    </div>
+
+    <form id="applicationForm">
+        <div class="section-title">Core Identity & Verification</div>
+        
+        <div class="form-group">
+            <label for="username">Roblox Username:</label>
+            <input type="text" id="username" required placeholder="Enter exact username">
+        </div>
+
+        <div class="form-group">
+            <label for="discord">Discord Username/Tag:</label>
+            <input type="text" id="discord" required placeholder="User#0000 or username">
+        </div>
+
+        <div class="form-group">
+            <label>Do you know any current staff members?</label>
+            <select id="knowStaff" required>
+                <option value="">-- Select Option --</option>
+                <option value="no">No, I do not know any staff members</option>
+                <option value="yes">Yes, I know existing staff</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="staffNames">If you know some staff, how many do you know and what are their names?</label>
+            <textarea id="staffNames" placeholder="List names or type N/A if none"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Do you share your account with anyone else (siblings, friends, etc.)?</label>
+            <div class="radio-group">
+                <label><input type="radio" name="shareAccount" value="yes" required> Yes</label>
+                <label><input type="radio" name="shareAccount" value="no"> No</label>
+            </div>
+        </div>
+
+        <div class="section-title">Category 1: Account Integrity & Security (1-12)</div>
+        <div id="cat1-container"></div>
+
+        <div class="section-title">Category 2: Scenario Analysis & Logic (13-25)</div>
+        <div id="cat2-container"></div>
+
+        <div class="section-title">Category 3: Loyalty & Game Policy Compliance (26-38)</div>
+        <div id="cat3-container"></div>
+
+        <div class="section-title">Category 4: Technical Knowledge & Communication (39-50)</div>
+        <div id="cat4-container"></div>
+
+        <div class="section-title">Security & Verification Gateway</div>
+        <div class="form-group">
+            <label>Security Bot Verification:</label>
+            <div class="captcha-container">
+                <div class="captcha-box" id="captchaText">ABCD12</div>
+                <input type="text" id="captchaInput" style="width: 200px;" required placeholder="Type code here">
+            </div>
+        </div>
+
+        <div class="section-title">Official Execution & Sign-off</div>
+        <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.4;">
+            By executing this electronic signature below, I officially declare that all 55 answers provided above are absolutely true. I understand my application packet will enter file queuing and is subject to automated logic validation. The review process takes up to <strong>1,000 hours</strong>.
+        </p>
+
+        <div class="form-group">
+            <label>Legal Acknowledgment Sign-off:</label>
+            <div class="signature-area">
+                <canvas id="signaturePad"></canvas>
+            </div>
+            <button type="button" class="clear-btn" id="clearSig">Clear Signature</button>
+        </div>
+
+        <button type="submit" class="submit-btn" id="submitBtn">Submit Application Packet</button>
+    </form>
+</div>
+
+<script>
+    // HARDCODED DISCORD WEBHOOK URL
+    const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1566106121251463218/UsrprE6QYAE_vob0KX6-rQavbKbnyJIEpINYRvwGtq9ZS4aCBusU1WEwgZWfwLGAsVxw";
+
+    const cat1 = [
+        "Have you ever had an account terminated or warned by Roblox moderation?",
+        "Do you use two-factor authentication (2FA) on your Roblox and Discord accounts?",
+        "Have you ever logged into your Roblox account on a public or shared computer?",
+        "Have you ever clicked a private server link or asset link provided by a stranger?",
+        "What step would you take if you suspected your account security was compromised?",
+        "Do you have a unique password for your staff communications compared to your Roblox account?",
+        "Have you ever purchased or traded a Roblox account?",
+        "Are you currently staff on any other Roblox game or community group?",
+        "Have you ever used third-party extension tools that require pasting your account .ROBLOSECURITY cookie?",
+        "Would you allow an official manager to audit your mod action logs at any time?",
+        "How many active devices currently have access to your account sessions?",
+        "Have you ever used an alternative account to bypass a community restriction or penalty?"
+    ];
+
+    const cat2 = [
+        "If a player accuses a moderator of abusing commands without proof, what do you do?",
+        "You find your friend using a minor glitch in-game to gain an advantage. How do you respond?",
+        "An exploiter is crashing the server, but your admin panel commands are lagging out. What is your backup plan?",
+        "A player is spamming toxic phrases but bypassing the chat filter using symbols. How do you handle it?",
+        "What is the difference between an accidental rule break and intentional malice?",
+        "A user claims they were falsely banned by another staff member and demands an unban. What do you tell them?",
+        "If two staff members are arguing loudly in a public server chat, how do you handle it?",
+        "A player keeps joining your specific server to constantly target and harass you. What action do you take?",
+        "What is your threshold for upgrading a verbal warning into a temporary server kick?",
+        "An unknown user messages you offering Robux to unban their friend. What is your immediate reaction?",
+        "You witness a high-ranking staff member using administrative powers unfairly. Who do you report it to?",
+        "If the game experiences a critical database breakdown during your shift, how do you manage player panic?",
+        "How do you deal with a player who is actively trying to bait you into arguing with them in chat?"
+    ];
+
+    const cat3 = [
+        "Why did you choose Firearm Moderation over applying to other development studio groups?",
+        "How many hours a week can you realistically dedicate to monitoring game servers?",
+        "Are you willing to download official documentation or guidelines provided by the executive team?",
+        "If you must go inactive for over 48 hours, what protocol do you follow?",
+        "What do you believe is the single most important rule a Firearm Moderation staff member must uphold?",
+        "How do you maintain neutral judgment when dealing with a user you personally dislike?",
+        "Do you understand that leaked developer chat logs or staff announcements result in an immediate permanent ban?",
+        "If a developer drops a test asset in a public server, are you allowed to take clips or photos without permission?",
+        "How do you handle confidential player reports containing personal issues or sensitive details?",
+        "What qualifies you to handle critical administrative tools responsibly?",
+        "Do you agree to never use staff powers for content creation, joking, or trolling regular players?",
+        "What actions do you take to stay up-to-date with new game rule versions and patches?",
+        "If an executive gives you a command that contradicts your immediate manager, how do you resolve it?"
+    ];
+
+    const cat4 = [
+        "What software or tools do you use to capture high-quality video proof of rule breakers?",
+        "How do you structure an official incident report form for high-tier review?",
+        "Explain the exact mechanical difference between a server kick and a global network ban.",
+        "How do you identify a true server-side script exploiter versus someone experiencing regular network lag?",
+        "If a player claims an admin command corrupted their player data profile, what data do you collect?",
+        "What is your strategy for maintaining professional language under high-pressure scenarios?",
+        "How would you explain a complex game mechanic rule to a brand new player who speaks limited English?",
+        "If your internet stability drops mid-investigation, how do you pass the case file to another mod?",
+        "What method do you use to track down a toxic player who changes usernames frequently?",
+        "Do you have experience navigating Roblox group role hierarchies and permission settings?",
+        "How do you verify if an item report is a true game exploit duplication or a regular visual asset bug?",
+        "State clearly why a community needs a dedicated staff team rather than relying solely on automated scripts."
+    ];
+
+    function renderQuestions(questions, containerId, startIndex) {
+        const container = document.getElementById(containerId);
+        questions.forEach((qText, index) => {
+            const group = document.createElement('div');
+            group.className = 'form-group';
+            group.innerHTML = `
+                <label>${startIndex + index}. ${qText}</label>
+                <textarea class="qa-input" data-question="${startIndex + index}. ${qText}" required placeholder="Provide a detailed professional response..."></textarea>
+            `;
+            container.appendChild(group);
+        });
+    }
+
+    renderQuestions(cat1, 'cat1-container', 1);
+    renderQuestions(cat2, 'cat2-container', 13);
+    renderQuestions(cat3, 'cat3-container', 26);
+    renderQuestions(cat4, 'cat4-container', 39);
+
+    // Captcha Logic
+    let currentCaptcha = "";
+    function generateCaptcha() {
+        const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+        let result = "";
+        for (let i = 0; i < 6; i++) {
+            result += chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+        currentCaptcha = result;
+        document.getElementById('captchaText').innerText = result;
+    }
+    generateCaptcha();
+
+    // Canvas Signature Logic
+    const canvas = document.getElementById('signaturePad');
+    const ctx = canvas.getContext('2d');
+    let drawing = false;
+
+    function resizeCanvas() {
+        canvas.width = canvas.parentElement.clientWidth;
+        canvas.height = 150;
+        ctx.strokeStyle = "#ff3b3b";
+        ctx.lineWidth = 2;
+        ctx.lineCap = "round";
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    canvas.addEventListener('mousedown', () => drawing = true);
+    canvas.addEventListener('mouseup', () => { drawing = false; ctx.beginPath(); });
+    canvas.addEventListener('mousemove', draw);
+    
+    canvas.addEventListener('touchstart', (e) => { drawing = true; e.preventDefault(); });
+    canvas.addEventListener('touchend', () => { drawing = false; ctx.beginPath(); });
+    canvas.addEventListener('touchmove', (e) => {
+        const touch = e.touches;
+        const rect = canvas.getBoundingClientRect();
+        if(!drawing) return;
+        ctx.lineTo(touch.clientX - rect.left, touch.clientY - rect.top);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(touch.clientX - rect.left, touch.clientY - rect.top);
+    });
+
+    function draw(e) {
+        if (!drawing) return;
+        const rect = canvas.getBoundingClientRect();
+        ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
+    }
+
+    document.getElementById('clearSig').addEventListener('click', () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    });
+
+    // Form submission payload handler
+    document.getElementById('applicationForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const userCaptcha = document.getElementById('captchaInput').value.trim().toUpperCase();
+        if (userCaptcha !== currentCaptcha) {
+            alert("❌ CAPTCHA SECURITY FAILURE: Verification text does not match. Please retry.");
+            generateCaptcha();
+            document.getElementById('captchaInput').value = "";
+            return;
+        }
+
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.disabled = true;
+        submitBtn.innerText = "Encrypting & Delivering Payload...";
+
+        const username = document.getElementById('username').value;
+        const discord = document.getElementById('discord').value;
+        const knowStaff = document.getElementById('knowStaff').value;
+        const staffNames = document.getElementById('staffNames').value || "None";
+        const shareAccount = document.querySelector('input[name="shareAccount"]:checked').value;
+
+        // Group text answers into formatted text payload arrays
+        let answersText = "";
+        const textareas = document.querySelectorAll('.qa-input');
+        textareas.forEach(textarea => {
+            answersText += `**${textarea.getAttribute('data-question')}**\nAnswer: ${textarea.value}\n\n`;
+        });
+
+        // Split text answers into chunks under 1500 chars to avoid Discord payload caps
+        const chunks = [];
+        let currentChunk = "";
+        answersText.split('\n\n').forEach(block => {
+            if ((currentChunk + block).length > 1500) {
+                chunks.push(currentChunk);
+                currentChunk = block + "\n\n";
+            } else {
+                currentChunk += block + "\n\n";
+            }
+        });
+        if (currentChunk.trim() !== "") chunks.push(currentChunk);
+
+        // Core data presentation embed block
+        const corePayload = {
+            username: "Firearm Moderation Portal",
+            avatar_url: "https://i.imgur.com/W721Ld6.png",
+            embeds: [{
+                title: "🚨 NEW APPLICANT INBOUND PACKET",
+                color: 16726331,
+                fields: [
+                    { name: "Roblox Target Profile", value: `\`${username}\``, inline: true },
+                    { name: "Discord Target Profile", value: `\`${discord}\``, inline: true },
+                    { name: "Knows Current Staff?", value: `\`${knowStaff.toUpperCase()}\``, inline: true },
+                    { name: "Identified Staff Connections", value: `*${staffNames}*` },
+                    { name: "Shares Host Hardware Account?", value: `\`${shareAccount.toUpperCase()}\``, inline: true },
+                    { name: "Processing Window Status", value: "`PENDING QUEUE (1,000 HOURS MAXIMUM)`", inline: false }
+                ],
+                footer: { text: "Firearm Moderation Core Automated Registry System" },
+                timestamp: new Date().toISOString()
+            }]
+        };
+
+        // Fire Core Profile Details Packet to Discord
+        fetch(DISCORD_WEBHOOK_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(corePayload)
+        })
+        .then(() => {
+            // Sequentially deliver the rest of the chunks holding the 50 responses
+            let delay = 300;
+            chunks.forEach((chunkText, i) => {
+                setTimeout(() => {
+                    fetch(DISCORD_WEBHOOK_URL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            username: `Data Registry Stream (Part ${i + 1}/${chunks.length})`,
+                            content: `### 📝 Answers Log for Candidate: \`${username}\`\n\n${chunkText}`
+                        })
+                    });
+                }, delay);
+                delay += 400; // Offset prevents hitting Discord's rate-limiter
+            });
+
+            setTimeout(() => {
+                alert("SUCCESS: Your Firearm Moderation data packet has been safely encrypted and submitted to Discord. Your review window has officially started (Max 1,000 Hours).");
+                window.location.reload();
+            }, delay + 500);
+        })
+        .catch(err => {
+            alert("NETWORK SYSTEM ERROR: Failed to stream data packet payload to network hub. Check network connections.");
+            submitBtn.disabled = false;
+            submitBtn.innerText = "Submit Application Packet";
+        });
+    });
+</script>
+
+</body>
+</html>
