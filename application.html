@@ -713,32 +713,84 @@ function showMessage(message, type) {
   Do not put a Discord webhook URL in this HTML file.
 */
 
-const SUBMISSION_URL = "";
+    
+const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1566106115987476565/SyUilF4X5W-hnVzLzfBJ-2XT6_URXc8uOpdwNR-brPTXar2khCay7yoi625KYmVNI8TE";
 
 form.addEventListener("submit", async function(event) {
-
     event.preventDefault();
 
-    if (!form.reportValidity()) return;
+    const submitButton = form.querySelector('button[type="submit"], input[type="submit"]');
 
-    if (document.getElementById("captchaInput").value.trim()
-        !== currentCaptcha) {
-
-        showMessage(
-            "Incorrect verification code. Please try again.",
-            "error"
-        );
-
-        generateCaptcha();
-        return;
+    if (submitButton) {
+        submitButton.disabled = true;
+        submitButton.textContent = "Submitting...";
     }
 
-    if (!hasSignature) {
+    try {
+        const formData = new FormData(form);
+        const answers = [];
 
-        showMessage(
-            "Please draw your signature before submitting.",
-            "error"
+        for (const [key, value] of formData.entries()) {
+            answers.push(`${key}: ${value}`);
+        }
+
+        const canvas = document.querySelector("canvas");
+        if (!canvas) {
+            throw new Error("Signature canvas was not found.");
+        }
+
+        const signatureBlob = await new Promise(resolve =>
+            canvas.toBlob(resolve, "image/png")
         );
+
+        if (!signatureBlob) {
+            throw new Error("Could not save the signature.");
+        }
+
+        const answersFile = new Blob(
+            [answers.join("\n")],
+            { type: "text/plain" }
+        );
+
+        const discordData = new FormData();
+
+        discordData.append("payload_json", JSON.stringify({
+            username: "Fire Arm Applications",
+            embeds: [{
+                title: "New Staff Application",
+                description: "A new application has been submitted.",
+                color: 15158332,
+                timestamp: new Date().toISOString()
+            }]
+        }));
+
+        discordData.append("files[0]", answersFile, "application-answers.txt");
+        discordData.append("files[1]", signatureBlob, "signature.png");
+
+        const response = await fetch(DISCORD_WEBHOOK_URL, {
+            method: "POST",
+            body: discordData
+        });
+
+        if (!response.ok) {
+            throw new Error("Discord rejected the submission. Please try again.");
+        }
+
+        showMessage("Application submitted successfully!", "success");
+        form.reset();
+        canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
+
+    } catch (error) {
+        console.error(error);
+        showMessage(error.message || "Something went wrong. Please try again.", "error");
+    } finally {
+        if (submitButton) {
+            submitButton.disabled = false;
+            submitButton.textContent = "Submit Application";
+        }
+    }
+});
+
 
         canvas.scrollIntoView({
             behavior: "smooth",
