@@ -1,0 +1,829 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0f1115">
+<title>Fire Arm - Staff Application</title>
+
+<style>
+:root {
+    --bg-color: #0f1115;
+    --container-bg: #161920;
+    --accent-color: #ff3b3b;
+    --text-color: #ffffff;
+    --text-muted: #a1aab5;
+    --border-color: #30363d;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    width: 100%;
+    max-width: 800px;
+    background: var(--container-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: clamp(18px, 5vw, 40px);
+    box-shadow: 0 4px 12px rgba(0,0,0,.5);
+}
+
+h1 {
+    color: var(--accent-color);
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.subtitle {
+    text-align: center;
+    color: var(--text-muted);
+    margin-bottom: 26px;
+}
+
+.notice {
+    background: rgba(255,59,59,.1);
+    border-left: 4px solid var(--accent-color);
+    padding: 15px;
+    margin-bottom: 30px;
+    color: #ffaaaa;
+    line-height: 1.5;
+}
+
+.section-title {
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 7px;
+    margin: 35px 0 18px;
+    color: #75b7ff;
+    text-transform: uppercase;
+    font-size: 1.05rem;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    font-size: .95rem;
+}
+
+input[type="text"],
+select,
+textarea {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background: #0d1117;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    color: white;
+    font: inherit;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+input:focus,
+textarea:focus,
+select:focus,
+button:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+}
+
+.radio-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.radio-group label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.signature-area {
+    border: 2px dashed var(--border-color);
+    background: #0d1117;
+    border-radius: 5px;
+    margin-top: 10px;
+    overflow: hidden;
+}
+
+canvas {
+    width: 100%;
+    height: 150px;
+    display: block;
+    touch-action: none;
+    cursor: crosshair;
+}
+
+.clear-btn {
+    background: #21262d;
+    color: #c9d1d9;
+    border: 1px solid var(--border-color);
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 8px;
+}
+
+.captcha-container {
+    background: #0d1117;
+    border: 1px solid var(--border-color);
+    padding: 15px;
+    border-radius: 5px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.captcha-box {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.captcha-code {
+    background: linear-gradient(45deg, #333, #555);
+    color: #ff7777;
+    font-size: 1.4rem;
+    font-weight: bold;
+    font-style: italic;
+    letter-spacing: 5px;
+    padding: 8px 15px;
+    border-radius: 4px;
+    user-select: none;
+}
+
+.submit-btn {
+    background: var(--accent-color);
+    color: white;
+    border: 0;
+    padding: 15px 30px;
+    font-size: 1.05rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 30px;
+}
+
+.submit-btn:hover {
+    background: #cc2e2e;
+}
+
+.submit-btn:disabled {
+    opacity: .65;
+    cursor: wait;
+}
+
+.status-message {
+    margin-top: 18px;
+    padding: 12px;
+    border-radius: 5px;
+    line-height: 1.5;
+}
+
+.status-message[hidden] {
+    display: none;
+}
+
+.status-message.error {
+    background: rgba(255,59,59,.12);
+    border: 1px solid #a33;
+    color: #ffb3b3;
+}
+
+.status-message.success {
+    background: rgba(46,160,67,.12);
+    border: 1px solid #2ea043;
+    color: #a8e6b2;
+}
+
+.status-message.info {
+    background: rgba(88,166,255,.12);
+    border: 1px solid #3976ad;
+    color: #c5e1ff;
+}
+
+.small-note {
+    color: var(--text-muted);
+    font-size: .88rem;
+    line-height: 1.5;
+}
+
+@media(max-width:520px) {
+    body {
+        padding: 10px;
+    }
+
+    .container {
+        padding: 18px 14px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<main class="container">
+
+<h1>Fire Arm</h1>
+
+<p class="subtitle">
+Official Recruitment &amp; Verification Portal
+</p>
+
+<div class="notice">
+<strong>Application Notice:</strong>
+Please answer honestly and provide only information relevant
+to your application. Never share passwords, account cookies,
+or login credentials.
+</div>
+
+<form id="applicationForm">
+
+<h2 class="section-title">
+Core Identity &amp; Verification
+</h2>
+
+<div class="form-group">
+<label for="username">Roblox Username</label>
+<input type="text" id="username" name="username"
+required maxlength="50" autocomplete="username"
+placeholder="Enter your exact Roblox username">
+</div>
+
+<div class="form-group">
+<label for="discord">Discord Username</label>
+<input type="text" id="discord" name="discord"
+required maxlength="80"
+placeholder="Enter your Discord username">
+</div>
+
+<div class="form-group">
+<label for="knowStaff">
+Do you know any current staff members?
+</label>
+
+<select id="knowStaff" name="knowStaff" required>
+<option value="">-- Select an option --</option>
+<option value="no">No, I do not know any staff members</option>
+<option value="yes">Yes, I know existing staff</option>
+</select>
+</div>
+
+<div class="form-group">
+<label for="staffNames">
+If yes, how many staff members do you know and what are their names?
+</label>
+<textarea id="staffNames" name="staffNames"
+maxlength="1500" placeholder="List names or type N/A">
+</textarea>
+</div>
+
+<div class="form-group">
+<label>
+Do you share your account with anyone else?
+</label>
+
+<div class="radio-group">
+<label>
+<input type="radio" name="shareAccount"
+value="yes" required> Yes
+</label>
+
+<label>
+<input type="radio" name="shareAccount"
+value="no"> No
+</label>
+</div>
+</div>
+
+<h2 class="section-title">
+Category 1: Account Integrity &amp; Security (1–12)
+</h2>
+<div id="cat1_container"></div>
+
+<h2 class="section-title">
+Category 2: Scenario Analysis &amp; Logic (13–25)
+</h2>
+<div id="cat2_container"></div>
+
+<h2 class="section-title">
+Category 3: Loyalty &amp; Game Policy Compliance (26–38)
+</h2>
+<div id="cat3_container"></div>
+
+<h2 class="section-title">
+Category 4: Technical Knowledge &amp; Communication (39–50)
+</h2>
+<div id="cat4_container"></div>
+
+<h2 class="section-title">
+Security &amp; Verification
+</h2>
+
+<div class="captcha-container">
+
+<label for="captchaInput">Verification Code</label>
+
+<div class="captcha-box">
+<div class="captcha-code" id="captchaDisplay">
+------
+</div>
+
+<button type="button" class="clear-btn"
+id="refreshCaptcha">
+Refresh Code
+</button>
+</div>
+
+<input type="text" id="captchaInput"
+name="captchaInput" required maxlength="6"
+autocomplete="off"
+placeholder="Type the code above">
+
+<p class="small-note">
+This is a basic browser check, not secure server-side CAPTCHA.
+</p>
+
+</div>
+
+<h2 class="section-title">
+Applicant Declaration &amp; Signature
+</h2>
+
+<p class="small-note">
+By signing, you confirm that your answers are accurate
+to the best of your knowledge.
+</p>
+
+<div class="form-group">
+
+<label for="signaturePad">Draw Your Signature</label>
+
+<div class="signature-area">
+<canvas id="signaturePad"></canvas>
+</div>
+
+<button type="button" class="clear-btn" id="clearSig">
+Clear Signature
+</button>
+
+<p class="small-note">
+A signature is required before submitting.
+</p>
+
+</div>
+
+<button type="submit" class="submit-btn" id="submitBtn">
+Submit Application
+</button>
+
+<div id="statusMessage"
+class="status-message"
+role="status"
+aria-live="polite"
+hidden></div>
+
+</form>
+</main>
+
+<script>
+
+/* =================================
+   APPLICATION QUESTIONS
+================================= */
+
+const cat1 = [
+"Have you ever had an account terminated or warned by Roblox moderation?",
+"Do you use two-factor authentication (2FA) on your Roblox and Discord accounts?",
+"Have you ever logged into your Roblox account on a public or shared computer?",
+"Have you ever clicked a private server link or asset link provided by a stranger?",
+"What step would you take if you suspected your account security was compromised?",
+"Do you have a unique password for your staff communications compared to your Roblox account?",
+"Have you ever purchased or traded a Roblox account?",
+"Are you currently staff on any other Roblox game or community group?",
+"Have you ever used third-party extension tools that require pasting your account .ROBLOSECURITY cookie?",
+"Would you allow an official manager to audit your mod action logs at any time?",
+"How many active devices currently have access to your account sessions?",
+"Have you ever used an alternative account to bypass a community restriction or penalty?"
+];
+
+const cat2 = [
+"If a player accuses a moderator of abusing commands without proof, what do you do?",
+"You find your friend using a minor glitch in-game to gain an advantage. How do you respond?",
+"An exploiter is crashing the server, but your admin panel commands are lagging out. What is your backup plan?",
+"A player is spamming toxic phrases but bypassing the chat filter using symbols. How do you handle it?",
+"What is the difference between an accidental rule break and intentional malice?",
+"A user claims they were falsely banned by another staff member and demands an unban. What do you tell them?",
+"If two staff members are arguing loudly in a public server chat, how do you handle it?",
+"A player keeps joining your specific server to constantly target and harass you. What action do you take?",
+"What is your threshold for upgrading a verbal warning into a temporary server kick?",
+"An unknown user messages you offering Robux to unban their friend. What is your immediate reaction?",
+"You witness a high-ranking staff member using administrative powers unfairly. Who do you report it to?",
+"If the game experiences a critical database breakdown during your shift, how do you manage player panic?",
+"How do you deal with a player who is actively trying to bait you into arguing with them in chat?"
+];
+
+const cat3 = [
+"Why did you choose Firearm Moderation over applying to other development studio groups?",
+"How many hours a week can you realistically dedicate to monitoring game servers?",
+"Are you willing to download official documentation or guidelines provided by the executive team?",
+"If you must go inactive for over 48 hours, what protocol do you follow?",
+"What do you believe is the single most important rule a Firearm Moderation staff member must uphold?",
+"How do you maintain neutral judgment when dealing with a user you personally dislike?",
+"Do you understand that leaked developer chat logs or staff announcements result in an immediate permanent ban?",
+"If a developer drops a test asset in a public server, are you allowed to take clips or photos without permission?",
+"How do you handle confidential player reports containing personal issues or sensitive details?",
+"What qualifies you to handle critical administrative tools responsibly?",
+"Do you agree to never use staff powers for content creation, joking, or trolling regular players?",
+"What actions do you take to stay up-to-date with new game rule versions and patches?",
+"If an executive gives you a command that contradicts your immediate manager, how do you resolve it?"
+];
+
+const cat4 = [
+"What software or tools do you use to capture high-quality video proof of rule breakers?",
+"How do you structure an official incident report form for high-tier review?",
+"Explain the exact mechanical difference between a server kick and a global network ban.",
+"How do you identify a true server-side script exploiter versus someone experiencing regular network lag?",
+"If a player claims an admin command corrupted their player data profile, what data do you collect?",
+"What is your strategy for maintaining professional language under high-pressure scenarios?",
+"How would you explain a complex game mechanic rule to a brand new player who speaks limited English?",
+"If your internet stability drops mid-investigation, how do you pass the case file to another mod?",
+"What method do you use to track down a toxic player who changes usernames frequently?",
+"Do you have experience navigating Roblox group role hierarchies and permission settings?",
+"How do you verify if an item report is a true game exploit duplication or a regular visual asset bug?",
+"State clearly why a community needs a dedicated staff team rather than relying solely on automated scripts."
+];
+
+/* =================================
+   GENERATE ALL 50 QUESTIONS
+================================= */
+
+function renderQuestions(containerId, questions, startNumber) {
+
+    const container = document.getElementById(containerId);
+
+    questions.forEach((question, index) => {
+
+        const number = startNumber + index;
+
+        const group = document.createElement("div");
+        group.className = "form-group";
+
+        const label = document.createElement("label");
+        label.htmlFor = "answer" + number;
+        label.textContent = number + ". " + question;
+
+        const textarea = document.createElement("textarea");
+        textarea.id = "answer" + number;
+        textarea.name = "answer" + number;
+        textarea.required = true;
+        textarea.maxLength = 5000;
+        textarea.placeholder = "Write your answer here...";
+
+        group.append(label, textarea);
+        container.appendChild(group);
+
+    });
+}
+
+renderQuestions("cat1_container", cat1, 1);
+renderQuestions("cat2_container", cat2, 13);
+renderQuestions("cat3_container", cat3, 26);
+renderQuestions("cat4_container", cat4, 39);
+
+/* =================================
+   STAFF NAME FIELD
+================================= */
+
+const staffSelect = document.getElementById("knowStaff");
+const staffNames = document.getElementById("staffNames");
+
+function updateStaffField() {
+
+    const knowsStaff = staffSelect.value === "yes";
+
+    staffNames.required = knowsStaff;
+
+    if (!knowsStaff) {
+        staffNames.value = "N/A";
+    } else if (staffNames.value === "N/A") {
+        staffNames.value = "";
+    }
+}
+
+staffSelect.addEventListener("change", updateStaffField);
+updateStaffField();
+
+/* =================================
+   CAPTCHA
+================================= */
+
+let currentCaptcha = "";
+
+function generateCaptcha() {
+
+    const characters =
+        "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789";
+
+    let result = "";
+
+    for (let i = 0; i < 6; i++) {
+        result += characters.charAt(
+            Math.floor(Math.random() * characters.length)
+        );
+    }
+
+    currentCaptcha = result;
+
+    document.getElementById("captchaDisplay").textContent = result;
+    document.getElementById("captchaInput").value = "";
+}
+
+document.getElementById("refreshCaptcha")
+.addEventListener("click", generateCaptcha);
+
+generateCaptcha();
+
+/* =================================
+   SIGNATURE PAD
+================================= */
+
+const canvas = document.getElementById("signaturePad");
+const ctx = canvas.getContext("2d");
+
+let isDrawing = false;
+let hasSignature = false;
+
+function resizeCanvas() {
+
+    const rect = canvas.getBoundingClientRect();
+    const ratio = Math.max(window.devicePixelRatio || 1, 1);
+
+    const previous = document.createElement("canvas");
+
+    previous.width = canvas.width;
+    previous.height = canvas.height;
+
+    if (canvas.width && canvas.height) {
+        previous.getContext("2d").drawImage(canvas, 0, 0);
+    }
+
+    canvas.width = Math.round(rect.width * ratio);
+    canvas.height = Math.round(150 * ratio);
+
+    ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+
+    ctx.strokeStyle = "#ff7777";
+    ctx.lineWidth = 2;
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+
+    if (previous.width && previous.height) {
+        ctx.drawImage(
+            previous,
+            0, 0,
+            previous.width,
+            previous.height,
+            0, 0,
+            rect.width,
+            150
+        );
+    }
+}
+
+function getCanvasPosition(event) {
+
+    const rect = canvas.getBoundingClientRect();
+
+    return {
+        x: event.clientX - rect.left,
+        y: event.clientY - rect.top
+    };
+}
+
+canvas.addEventListener("pointerdown", function(event) {
+
+    event.preventDefault();
+
+    isDrawing = true;
+
+    canvas.setPointerCapture(event.pointerId);
+
+    const point = getCanvasPosition(event);
+
+    ctx.beginPath();
+    ctx.moveTo(point.x, point.y);
+    ctx.lineTo(point.x + 0.01, point.y + 0.01);
+    ctx.stroke();
+
+    hasSignature = true;
+
+});
+
+canvas.addEventListener("pointermove", function(event) {
+
+    if (!isDrawing) return;
+
+    event.preventDefault();
+
+    const point = getCanvasPosition(event);
+
+    ctx.lineTo(point.x, point.y);
+    ctx.stroke();
+
+});
+
+function stopDrawing() {
+    isDrawing = false;
+    ctx.beginPath();
+}
+
+canvas.addEventListener("pointerup", stopDrawing);
+canvas.addEventListener("pointercancel", stopDrawing);
+canvas.addEventListener("lostpointercapture", stopDrawing);
+
+document.getElementById("clearSig")
+.addEventListener("click", function() {
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    hasSignature = false;
+
+});
+
+resizeCanvas();
+
+let resizeFrame;
+
+window.addEventListener("resize", function() {
+
+    cancelAnimationFrame(resizeFrame);
+
+    resizeFrame = requestAnimationFrame(resizeCanvas);
+
+});
+
+/* =================================
+   FORM VALIDATION & SUBMISSION
+================================= */
+
+const form = document.getElementById("applicationForm");
+const statusMessage = document.getElementById("statusMessage");
+
+function showMessage(message, type) {
+
+    statusMessage.textContent = message;
+    statusMessage.className = "status-message " + type;
+    statusMessage.hidden = false;
+
+}
+
+/*
+  IMPORTANT:
+  Add your secure backend URL here when it is ready.
+  Example: https://your-server.example.com/api/applications
+
+  Do not put a Discord webhook URL in this HTML file.
+*/
+
+const SUBMISSION_URL = "";
+
+form.addEventListener("submit", async function(event) {
+
+    event.preventDefault();
+
+    if (!form.reportValidity()) return;
+
+    if (document.getElementById("captchaInput").value.trim()
+        !== currentCaptcha) {
+
+        showMessage(
+            "Incorrect verification code. Please try again.",
+            "error"
+        );
+
+        generateCaptcha();
+        return;
+    }
+
+    if (!hasSignature) {
+
+        showMessage(
+            "Please draw your signature before submitting.",
+            "error"
+        );
+
+        canvas.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+
+        return;
+    }
+
+    if (!SUBMISSION_URL) {
+
+        showMessage(
+            "Your answers passed the browser checks, but they have NOT been sent to staff. A secure submission backend still needs to be connected.",
+            "info"
+        );
+
+        return;
+    }
+
+    const submitButton = document.getElementById("submitBtn");
+
+    submitButton.disabled = true;
+    submitButton.textContent = "Submitting...";
+
+    try {
+
+        const answers = {};
+
+        for (let i = 1; i <= 50; i++) {
+            answers["question" + i] =
+                document.getElementById("answer" + i).value.trim();
+        }
+
+        const payload = {
+            username: document.getElementById("username").value.trim(),
+            discord: document.getElementById("discord").value.trim(),
+            knowStaff: staffSelect.value,
+            staffNames: staffNames.value.trim(),
+            shareAccount: form.querySelector(
+                'input[name="shareAccount"]:checked'
+            ).value,
+            answers: answers,
+            signature: canvas.toDataURL("image/png")
+        };
+
+        const response = await fetch(SUBMISSION_URL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+            throw new Error("The server rejected the application.");
+        }
+
+        showMessage(
+            "Your application was submitted successfully!",
+            "success"
+        );
+
+        form.reset();
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        hasSignature = false;
+        updateStaffField();
+        generateCaptcha();
+
+    } catch (error) {
+
+        showMessage(
+            "Your application could not be submitted. Please try again later.",
+            "error"
+        );
+
+    } finally {
+
+        submitButton.disabled = false;
+        submitButton.textContent = "Submit Application";
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>
