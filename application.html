@@ -16,11 +16,7 @@
     --text-muted: #a1aab5;
     --border-color: #30363d;
 }
-
-* {
-    box-sizing: border-box;
-}
-
+* { box-sizing: border-box; }
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: var(--bg-color);
@@ -30,7 +26,6 @@ body {
     display: flex;
     justify-content: center;
 }
-
 .container {
     width: 100%;
     max-width: 800px;
@@ -40,20 +35,17 @@ body {
     padding: clamp(18px, 5vw, 40px);
     box-shadow: 0 4px 12px rgba(0,0,0,.5);
 }
-
 h1 {
     color: var(--accent-color);
     text-align: center;
     text-transform: uppercase;
     letter-spacing: 2px;
 }
-
 .subtitle {
     text-align: center;
     color: var(--text-muted);
     margin-bottom: 26px;
 }
-
 .notice {
     background: rgba(255,59,59,.1);
     border-left: 4px solid var(--accent-color);
@@ -62,7 +54,6 @@ h1 {
     color: #ffaaaa;
     line-height: 1.5;
 }
-
 .section-title {
     border-bottom: 2px solid var(--border-color);
     padding-bottom: 7px;
@@ -71,21 +62,14 @@ h1 {
     text-transform: uppercase;
     font-size: 1.05rem;
 }
-
-.form-group {
-    margin-bottom: 20px;
-}
-
+.form-group { margin-bottom: 20px; }
 label {
     display: block;
     margin-bottom: 8px;
     font-weight: 600;
     font-size: .95rem;
 }
-
-input[type="text"],
-select,
-textarea {
+input[type="text"], select, textarea {
     display: block;
     width: 100%;
     padding: 12px;
@@ -95,32 +79,21 @@ textarea {
     color: white;
     font: inherit;
 }
-
-textarea {
-    resize: vertical;
-    min-height: 100px;
-}
-
-input:focus,
-textarea:focus,
-select:focus,
-button:focus-visible {
+textarea { resize: vertical; min-height: 100px; }
+input:focus, textarea:focus, select:focus, button:focus-visible {
     outline: 2px solid var(--accent-color);
     outline-offset: 2px;
 }
-
 .radio-group {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
 }
-
 .radio-group label {
     display: flex;
     align-items: center;
     gap: 8px;
 }
-
 .signature-area {
     border: 2px dashed var(--border-color);
     background: #0d1117;
@@ -128,7 +101,6 @@ button:focus-visible {
     margin-top: 10px;
     overflow: hidden;
 }
-
 canvas {
     width: 100%;
     height: 150px;
@@ -136,7 +108,6 @@ canvas {
     touch-action: none;
     cursor: crosshair;
 }
-
 .clear-btn {
     background: #21262d;
     color: #c9d1d9;
@@ -146,7 +117,6 @@ canvas {
     cursor: pointer;
     margin-top: 8px;
 }
-
 .captcha-container {
     background: #0d1117;
     border: 1px solid var(--border-color);
@@ -157,14 +127,12 @@ canvas {
     flex-direction: column;
     gap: 10px;
 }
-
 .captcha-box {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
     gap: 15px;
 }
-
 .captcha-code {
     background: linear-gradient(45deg, #333, #555);
     color: #ff7777;
@@ -176,7 +144,6 @@ canvas {
     border-radius: 4px;
     user-select: none;
 }
-
 .submit-btn {
     background: var(--accent-color);
     color: white;
@@ -190,72 +157,46 @@ canvas {
     width: 100%;
     margin-top: 30px;
 }
-
-.submit-btn:hover {
-    background: #cc2e2e;
-}
-
-.submit-btn:disabled {
-    opacity: .65;
-    cursor: wait;
-}
-
+.submit-btn:hover { background: #cc2e2e; }
+.submit-btn:disabled { opacity: .65; cursor: wait; }
 .status-message {
     margin-top: 18px;
     padding: 12px;
     border-radius: 5px;
     line-height: 1.5;
 }
-
-.status-message[hidden] {
-    display: none;
-}
-
+.status-message[hidden] { display: none; }
 .status-message.error {
     background: rgba(255,59,59,.12);
     border: 1px solid #a33;
     color: #ffb3b3;
 }
-
 .status-message.success {
     background: rgba(46,160,67,.12);
     border: 1px solid #2ea043;
     color: #a8e6b2;
 }
-
 .status-message.info {
     background: rgba(88,166,255,.12);
     border: 1px solid #3976ad;
     color: #c5e1ff;
 }
-
 .small-note {
     color: var(--text-muted);
     font-size: .88rem;
     line-height: 1.5;
 }
-
 @media(max-width:520px) {
-    body {
-        padding: 10px;
-    }
-
-    .container {
-        padding: 18px 14px;
-    }
+    body { padding: 10px; }
+    .container { padding: 18px 14px; }
 }
 </style>
 </head>
 
 <body>
-
 <main class="container">
-
 <h1>Fire Arm</h1>
-
-<p class="subtitle">
-Official Recruitment &amp; Verification Portal
-</p>
+<p class="subtitle">Official Recruitment &amp; Verification Portal</p>
 
 <div class="notice">
 <strong>Application Notice:</strong>
@@ -265,10 +206,7 @@ or login credentials.
 </div>
 
 <form id="applicationForm">
-
-<h2 class="section-title">
-Core Identity &amp; Verification
-</h2>
+<h2 class="section-title">Core Identity &amp; Verification</h2>
 
 <div class="form-group">
 <label for="username">Roblox Username</label>
@@ -280,15 +218,11 @@ placeholder="Enter your exact Roblox username">
 <div class="form-group">
 <label for="discord">Discord Username</label>
 <input type="text" id="discord" name="discord"
-required maxlength="80"
-placeholder="Enter your Discord username">
+required maxlength="80" placeholder="Enter your Discord username">
 </div>
 
 <div class="form-group">
-<label for="knowStaff">
-Do you know any current staff members?
-</label>
-
+<label for="knowStaff">Do you know any current staff members?</label>
 <select id="knowStaff" name="knowStaff" required>
 <option value="">-- Select an option --</option>
 <option value="no">No, I do not know any staff members</option>
@@ -297,128 +231,63 @@ Do you know any current staff members?
 </div>
 
 <div class="form-group">
-<label for="staffNames">
-If yes, how many staff members do you know and what are their names?
-</label>
-<textarea id="staffNames" name="staffNames"
-maxlength="1500" placeholder="List names or type N/A">
-</textarea>
+<label for="staffNames">If yes, how many staff members do you know and what are their names?</label>
+<textarea id="staffNames" name="staffNames" maxlength="1500"
+placeholder="List names or type N/A"></textarea>
 </div>
 
 <div class="form-group">
-<label>
-Do you share your account with anyone else?
-</label>
-
+<label>Do you share your account with anyone else?</label>
 <div class="radio-group">
-<label>
-<input type="radio" name="shareAccount"
-value="yes" required> Yes
-</label>
-
-<label>
-<input type="radio" name="shareAccount"
-value="no"> No
-</label>
+<label><input type="radio" name="shareAccount" value="yes" required> Yes</label>
+<label><input type="radio" name="shareAccount" value="no"> No</label>
 </div>
 </div>
 
-<h2 class="section-title">
-Category 1: Account Integrity &amp; Security (1–12)
-</h2>
+<h2 class="section-title">Category 1: Account Integrity &amp; Security (1–12)</h2>
 <div id="cat1_container"></div>
 
-<h2 class="section-title">
-Category 2: Scenario Analysis &amp; Logic (13–25)
-</h2>
+<h2 class="section-title">Category 2: Scenario Analysis &amp; Logic (13–25)</h2>
 <div id="cat2_container"></div>
 
-<h2 class="section-title">
-Category 3: Loyalty &amp; Game Policy Compliance (26–38)
-</h2>
+<h2 class="section-title">Category 3: Loyalty &amp; Game Policy Compliance (26–38)</h2>
 <div id="cat3_container"></div>
 
-<h2 class="section-title">
-Category 4: Technical Knowledge &amp; Communication (39–50)
-</h2>
+<h2 class="section-title">Category 4: Technical Knowledge &amp; Communication (39–50)</h2>
 <div id="cat4_container"></div>
 
-<h2 class="section-title">
-Security &amp; Verification
-</h2>
-
+<h2 class="section-title">Security &amp; Verification</h2>
 <div class="captcha-container">
-
 <label for="captchaInput">Verification Code</label>
-
 <div class="captcha-box">
-<div class="captcha-code" id="captchaDisplay">
-------
+<div class="captcha-code" id="captchaDisplay">------</div>
+<button type="button" class="clear-btn" id="refreshCaptcha">Refresh Code</button>
 </div>
-
-<button type="button" class="clear-btn"
-id="refreshCaptcha">
-Refresh Code
-</button>
-</div>
-
-<input type="text" id="captchaInput"
-name="captchaInput" required maxlength="6"
-autocomplete="off"
+<input type="text" id="captchaInput" name="captchaInput"
+required maxlength="6" autocomplete="off"
 placeholder="Type the code above">
-
-<p class="small-note">
-This is a basic browser check, not secure server-side CAPTCHA.
-</p>
-
+<p class="small-note">This is a basic browser check, not secure server-side CAPTCHA.</p>
 </div>
 
-<h2 class="section-title">
-Applicant Declaration &amp; Signature
-</h2>
-
-<p class="small-note">
-By signing, you confirm that your answers are accurate
-to the best of your knowledge.
-</p>
+<h2 class="section-title">Applicant Declaration &amp; Signature</h2>
+<p class="small-note">By signing, you confirm that your answers are accurate to the best of your knowledge.</p>
 
 <div class="form-group">
-
 <label for="signaturePad">Draw Your Signature</label>
-
 <div class="signature-area">
 <canvas id="signaturePad"></canvas>
 </div>
-
-<button type="button" class="clear-btn" id="clearSig">
-Clear Signature
-</button>
-
-<p class="small-note">
-A signature is required before submitting.
-</p>
-
+<button type="button" class="clear-btn" id="clearSig">Clear Signature</button>
+<p class="small-note">A signature is required before submitting.</p>
 </div>
 
-<button type="submit" class="submit-btn" id="submitBtn">
-Submit Application
-</button>
-
-<div id="statusMessage"
-class="status-message"
-role="status"
-aria-live="polite"
-hidden></div>
-
+<button type="submit" class="submit-btn" id="submitBtn">Submit Application</button>
+<div id="statusMessage" class="status-message" role="status" aria-live="polite" hidden></div>
 </form>
 </main>
 
 <script>
-
-/* =================================
-   APPLICATION QUESTIONS
-================================= */
-
+/* APPLICATION QUESTIONS */
 const cat1 = [
 "Have you ever had an account terminated or warned by Roblox moderation?",
 "Do you use two-factor authentication (2FA) on your Roblox and Discord accounts?",
@@ -481,18 +350,11 @@ const cat4 = [
 "State clearly why a community needs a dedicated staff team rather than relying solely on automated scripts."
 ];
 
-/* =================================
-   GENERATE ALL 50 QUESTIONS
-================================= */
-
+/* RENDER QUESTIONS */
 function renderQuestions(containerId, questions, startNumber) {
-
     const container = document.getElementById(containerId);
-
     questions.forEach((question, index) => {
-
         const number = startNumber + index;
-
         const group = document.createElement("div");
         group.className = "form-group";
 
@@ -509,7 +371,6 @@ function renderQuestions(containerId, questions, startNumber) {
 
         group.append(label, textarea);
         container.appendChild(group);
-
     });
 }
 
@@ -518,17 +379,12 @@ renderQuestions("cat2_container", cat2, 13);
 renderQuestions("cat3_container", cat3, 26);
 renderQuestions("cat4_container", cat4, 39);
 
-/* =================================
-   STAFF NAME FIELD
-================================= */
-
+/* STAFF FIELD */
 const staffSelect = document.getElementById("knowStaff");
 const staffNames = document.getElementById("staffNames");
 
 function updateStaffField() {
-
     const knowsStaff = staffSelect.value === "yes";
-
     staffNames.required = knowsStaff;
 
     if (!knowsStaff) {
@@ -537,57 +393,39 @@ function updateStaffField() {
         staffNames.value = "";
     }
 }
-
 staffSelect.addEventListener("change", updateStaffField);
 updateStaffField();
 
-/* =================================
-   CAPTCHA
-================================= */
-
+/* CAPTCHA */
 let currentCaptcha = "";
 
 function generateCaptcha() {
-
-    const characters =
-        "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789";
-
+    const characters = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789";
     let result = "";
 
     for (let i = 0; i < 6; i++) {
-        result += characters.charAt(
-            Math.floor(Math.random() * characters.length)
-        );
+        result += characters.charAt(Math.floor(Math.random() * characters.length));
     }
 
     currentCaptcha = result;
-
     document.getElementById("captchaDisplay").textContent = result;
     document.getElementById("captchaInput").value = "";
 }
 
-document.getElementById("refreshCaptcha")
-.addEventListener("click", generateCaptcha);
-
+document.getElementById("refreshCaptcha").addEventListener("click", generateCaptcha);
 generateCaptcha();
 
-/* =================================
-   SIGNATURE PAD
-================================= */
-
+/* SIGNATURE PAD */
 const canvas = document.getElementById("signaturePad");
 const ctx = canvas.getContext("2d");
-
 let isDrawing = false;
 let hasSignature = false;
 
 function resizeCanvas() {
-
     const rect = canvas.getBoundingClientRect();
     const ratio = Math.max(window.devicePixelRatio || 1, 1);
 
     const previous = document.createElement("canvas");
-
     previous.width = canvas.width;
     previous.height = canvas.height;
 
@@ -597,7 +435,6 @@ function resizeCanvas() {
 
     canvas.width = Math.round(rect.width * ratio);
     canvas.height = Math.round(150 * ratio);
-
     ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
 
     ctx.strokeStyle = "#ff7777";
@@ -606,22 +443,13 @@ function resizeCanvas() {
     ctx.lineJoin = "round";
 
     if (previous.width && previous.height) {
-        ctx.drawImage(
-            previous,
-            0, 0,
-            previous.width,
-            previous.height,
-            0, 0,
-            rect.width,
-            150
-        );
+        ctx.drawImage(previous, 0, 0, previous.width, previous.height,
+            0, 0, rect.width, 150);
     }
 }
 
 function getCanvasPosition(event) {
-
     const rect = canvas.getBoundingClientRect();
-
     return {
         x: event.clientX - rect.left,
         y: event.clientY - rect.top
@@ -629,35 +457,24 @@ function getCanvasPosition(event) {
 }
 
 canvas.addEventListener("pointerdown", function(event) {
-
     event.preventDefault();
-
     isDrawing = true;
-
     canvas.setPointerCapture(event.pointerId);
 
     const point = getCanvasPosition(event);
-
     ctx.beginPath();
     ctx.moveTo(point.x, point.y);
     ctx.lineTo(point.x + 0.01, point.y + 0.01);
     ctx.stroke();
-
     hasSignature = true;
-
 });
 
 canvas.addEventListener("pointermove", function(event) {
-
     if (!isDrawing) return;
-
     event.preventDefault();
-
     const point = getCanvasPosition(event);
-
     ctx.lineTo(point.x, point.y);
     ctx.stroke();
-
 });
 
 function stopDrawing() {
@@ -669,189 +486,125 @@ canvas.addEventListener("pointerup", stopDrawing);
 canvas.addEventListener("pointercancel", stopDrawing);
 canvas.addEventListener("lostpointercapture", stopDrawing);
 
-document.getElementById("clearSig")
-.addEventListener("click", function() {
-
+document.getElementById("clearSig").addEventListener("click", function() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-
     hasSignature = false;
-
 });
 
 resizeCanvas();
 
 let resizeFrame;
-
 window.addEventListener("resize", function() {
-
     cancelAnimationFrame(resizeFrame);
-
     resizeFrame = requestAnimationFrame(resizeCanvas);
-
 });
 
-/* =================================
-   FORM VALIDATION & SUBMISSION
-================================= */
-
+/* FORM SUBMISSION */
 const form = document.getElementById("applicationForm");
 const statusMessage = document.getElementById("statusMessage");
+const submitButton = document.getElementById("submitBtn");
+
+/* Your supplied Discord webhook */
+const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1566106115987476565/SyUilF4X5W-hnVzLzfBJ-2XT6_URXc8uOpdwNR-brPTXar2khCay7yoi625KYmVNI8TE";
 
 function showMessage(message, type) {
-
     statusMessage.textContent = message;
     statusMessage.className = "status-message " + type;
     statusMessage.hidden = false;
-
 }
-
-/*
-  IMPORTANT:
-  Add your secure backend URL here when it is ready.
-  Example: https://your-server.example.com/api/applications
-
-  Do not put a Discord webhook URL in this HTML file.
-*/
-
-    
-const DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1566106115987476565/SyUilF4X5W-hnVzLzfBJ-2XT6_URXc8uOpdwNR-brPTXar2khCay7yoi625KYmVNI8TE";
 
 form.addEventListener("submit", async function(event) {
     event.preventDefault();
 
-    const submitButton = form.querySelector('button[type="submit"], input[type="submit"]');
+    if (!form.reportValidity()) return;
 
-    if (submitButton) {
-        submitButton.disabled = true;
-        submitButton.textContent = "Submitting...";
-    }
-
-    try {
-        const formData = new FormData(form);
-        const answers = [];
-
-        for (const [key, value] of formData.entries()) {
-            answers.push(`${key}: ${value}`);
-        }
-
-        const canvas = document.querySelector("canvas");
-        if (!canvas) {
-            throw new Error("Signature canvas was not found.");
-        }
-
-        const signatureBlob = await new Promise(resolve =>
-            canvas.toBlob(resolve, "image/png")
-        );
-
-        if (!signatureBlob) {
-            throw new Error("Could not save the signature.");
-        }
-
-        const answersFile = new Blob(
-            [answers.join("\n")],
-            { type: "text/plain" }
-        );
-
-        const discordData = new FormData();
-
-        discordData.append("payload_json", JSON.stringify({
-            username: "Fire Arm Applications",
-            embeds: [{
-                title: "New Staff Application",
-                description: "A new application has been submitted.",
-                color: 15158332,
-                timestamp: new Date().toISOString()
-            }]
-        }));
-
-        discordData.append("files[0]", answersFile, "application-answers.txt");
-        discordData.append("files[1]", signatureBlob, "signature.png");
-
-        const response = await fetch(DISCORD_WEBHOOK_URL, {
-            method: "POST",
-            body: discordData
-        });
-
-        if (!response.ok) {
-            throw new Error("Discord rejected the submission. Please try again.");
-        }
-
-        showMessage("Application submitted successfully!", "success");
-        form.reset();
-        canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
-
-    } catch (error) {
-        console.error(error);
-        showMessage(error.message || "Something went wrong. Please try again.", "error");
-    } finally {
-        if (submitButton) {
-            submitButton.disabled = false;
-            submitButton.textContent = "Submit Application";
-        }
-    }
-});
-
-
-        canvas.scrollIntoView({
-            behavior: "smooth",
-            block: "center"
-        });
-
+    if (document.getElementById("captchaInput").value.trim() !== currentCaptcha) {
+        showMessage("Incorrect verification code. Please try again.", "error");
+        generateCaptcha();
         return;
     }
 
-    if (!SUBMISSION_URL) {
-
-        showMessage(
-            "Your answers passed the browser checks, but they have NOT been sent to staff. A secure submission backend still needs to be connected.",
-            "info"
-        );
-
+    if (!hasSignature) {
+        showMessage("Please draw your signature before submitting.", "error");
+        canvas.scrollIntoView({ behavior: "smooth", block: "center" });
         return;
     }
-
-    const submitButton = document.getElementById("submitBtn");
 
     submitButton.disabled = true;
     submitButton.textContent = "Submitting...";
 
     try {
+        const answers = [];
 
-        const answers = {};
+        answers.push("FIRE ARM - STAFF APPLICATION");
+        answers.push("================================");
+        answers.push("Roblox Username: " + document.getElementById("username").value.trim());
+        answers.push("Discord Username: " + document.getElementById("discord").value.trim());
+        answers.push("Knows Staff: " + staffSelect.value);
+        answers.push("Staff Names: " + staffNames.value.trim());
+        answers.push("Shares Account: " +
+            form.querySelector('input[name="shareAccount"]:checked').value);
+        answers.push("");
+        answers.push("APPLICATION ANSWERS");
+        answers.push("===================");
 
         for (let i = 1; i <= 50; i++) {
-            answers["question" + i] =
-                document.getElementById("answer" + i).value.trim();
+            answers.push("");
+            answers.push("Question " + i + ":");
+            answers.push(document.getElementById("answer" + i).value.trim());
         }
 
-        const payload = {
-            username: document.getElementById("username").value.trim(),
-            discord: document.getElementById("discord").value.trim(),
-            knowStaff: staffSelect.value,
-            staffNames: staffNames.value.trim(),
-            shareAccount: form.querySelector(
-                'input[name="shareAccount"]:checked'
-            ).value,
-            answers: answers,
-            signature: canvas.toDataURL("image/png")
-        };
+        const signatureBlob = await new Promise(resolve => {
+            canvas.toBlob(resolve, "image/png");
+        });
 
-        const response = await fetch(SUBMISSION_URL, {
+        if (!signatureBlob) {
+            throw new Error("Could not create the signature image.");
+        }
+
+        const answersBlob = new Blob(
+            [answers.join("\n")],
+            { type: "text/plain;charset=utf-8" }
+        );
+
+        const discordForm = new FormData();
+
+        discordForm.append("payload_json", JSON.stringify({
+            username: "Fire Arm Applications",
+            embeds: [{
+                title: "New Staff Application",
+                description: "A new staff application has been received.",
+                color: 16729914,
+                fields: [
+                    {
+                        name: "Roblox Username",
+                        value: document.getElementById("username").value.trim().slice(0, 1000),
+                        inline: true
+                    },
+                    {
+                        name: "Discord Username",
+                        value: document.getElementById("discord").value.trim().slice(0, 1000),
+                        inline: true
+                    }
+                ],
+                footer: { text: "Fire Arm Recruitment Portal" },
+                timestamp: new Date().toISOString()
+            }]
+        }));
+
+        discordForm.append("files[0]", answersBlob, "application-answers.txt");
+        discordForm.append("files[1]", signatureBlob, "signature.png");
+
+        const response = await fetch(DISCORD_WEBHOOK_URL + "?wait=true", {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(payload)
+            body: discordForm
         });
 
         if (!response.ok) {
-            throw new Error("The server rejected the application.");
+            throw new Error("Discord returned an error: " + response.status);
         }
 
-        showMessage(
-            "Your application was submitted successfully!",
-            "success"
-        );
+        showMessage("Your application was submitted successfully!", "success");
 
         form.reset();
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -860,22 +613,16 @@ form.addEventListener("submit", async function(event) {
         generateCaptcha();
 
     } catch (error) {
-
+        console.error("Application submission error:", error);
         showMessage(
-            "Your application could not be submitted. Please try again later.",
+            "Submission failed. Please try again. Error: " + error.message,
             "error"
         );
-
     } finally {
-
         submitButton.disabled = false;
         submitButton.textContent = "Submit Application";
-
     }
-
 });
-
 </script>
-
 </body>
 </html>
